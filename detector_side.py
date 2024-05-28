@@ -142,8 +142,10 @@ def save_vids(tfilename,samples,preds,bboxs,save_path):
             label = 'fake:'+str(pred) if pred>0.5 else "real:"+str(pred)
             color = (0,0,255) if pred>0.5 else (0,255,0)
             x1,x2,y1,y2=bboxs[j][0],bboxs[j][0]+bboxs[j][2],bboxs[j][1],bboxs[j][1]+bboxs[j][2]
-            cv2.rectangle(frame,(x1,y1),(x2,y2),color,3)
-            cv2.putText(frame,label,(x1+90,y2+60),cv2.FONT_HERSHEY_COMPLEX,1,color,2)
+            # cv2.rectangle(frame,(x1,y1),(x2,y2),color,3)
+            # cv2.putText(frame,label,(x1+90,y2+60),cv2.FONT_HERSHEY_COMPLEX,1,color,2)
+            cv2.rectangle(image,(x1,y1),(x2,y2),color,10)
+            cv2.putText(image,label,(x1+40,y1-50),cv2.FONT_HERSHEY_COMPLEX,2,color,10)
             if i in samples:
                 j+=1
             frames.append(frame)
@@ -240,8 +242,8 @@ if uploaded_file:
                     label="real:"+str(1-pred)
                     color = (0,255,0)
                 x1,x2,y1,y2=cord[0],cord[0]+cord[2],cord[1],cord[1]+cord[2]
-                cv2.rectangle(image,(x1,y1),(x2,y2),color,2)
-                cv2.putText(image,label,(x1+80,y2+70),cv2.FONT_HERSHEY_COMPLEX,1,color,2)
+                cv2.rectangle(image,(x1,y1),(x2,y2),color,10)
+                cv2.putText(image,label,(x1+40,y1-50),cv2.FONT_HERSHEY_COMPLEX,2,color,10)
                 with cnt2:
                     st.markdown("### <center> 检测结果 </center>",True)
                     image=cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
