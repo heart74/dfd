@@ -160,14 +160,14 @@ def save_vids(tfilename,samples,preds,bboxs,save_path):
     for frame in frames:
         out.write(frame)
     out.release()  # 释放新视频文件
-    convert_video(output_path,"/media/sdd/zhy/webui/detect.mp4")
+    convert_video(output_path,"./detect.mp4")
 
 # ========================================================================== #
 st.markdown("# <center> 深度伪造检测系统 :mag: </center>",True)
 st.sidebar.write("## 加载模型 :floppy_disk:")
 model_list = ['Xception', 'EfficientNet-B4', 'CDC']
 model_name = st.sidebar.selectbox("选择检测模型", model_list)
-# model_name = "CDC"
+model_name = "CDC"
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 if model_name == 'CDC':
     model, input_size = model_selection('EFF_CMIA', freq_srm=(3,1),fusion="se",eff='efficientnet_b4',embeddings=0)

@@ -23,6 +23,7 @@ dependencies:
   - wheel=0.41.2=py310h06a4308_0
   - xz=5.4.6=h5eee18b_0
   - zlib=1.2.13=h5eee18b_0
+
   - pip:
       - albumentations==1.4.1
       - altair==5.2.0

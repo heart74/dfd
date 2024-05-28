@@ -160,7 +160,7 @@ def save_vids(tfilename,samples,preds,bboxs,save_path):
     for frame in frames:
         out.write(frame)
     out.release()  # 释放新视频文件
-    convert_video(output_path,"/media/sdd/zhy/webui/detect.mp4")
+    convert_video(output_path,"./detect.mp4")
 
 # ========================================================================== #
 st.markdown("# <center> 深度人脸伪造检测系统 :mag: </center>",True)

@@ -30,12 +30,12 @@ input_size = {
 }
 
 class CUS_EFF(nn.Module):
-    def __init__(self, model_name='efficientnet_b0', pretrained=True, **kwargs):
+    def __init__(self, model_name='efficientnet_b0', pretrained=False, **kwargs):
         super(CUS_EFF, self).__init__()
         # 加载预训练的EfficientNet模型
-        pretrained_cfg = timm.models.create_model(model_name).default_cfg
-        pretrained_cfg['file']=pretrained_paths[model_name]
-        self.model = timm.create_model(model_name, pretrained=pretrained, num_classes=2, pretrained_cfg=pretrained_cfg, **kwargs)
+        # pretrained_cfg = timm.models.create_model(model_name).default_cfg
+        # pretrained_cfg['file']=pretrained_paths[model_name]
+        self.model = timm.create_model(model_name, pretrained=pretrained, num_classes=2,  **kwargs)
 
         # 添加自定义属性
         self.stem_layer = nn.Sequential(
@@ -82,7 +82,7 @@ class CUS_EFF(nn.Module):
 
 
 class EFF_CMIA(nn.Module):
-    def __init__(self, model_name='efficientnet_b0', pretrained=True, embddings=64, freq_srm=(0,0),fusion="ca",**kwargs):
+    def __init__(self, model_name='efficientnet_b0', pretrained=False, embddings=64, freq_srm=(0,0),fusion="ca",**kwargs):
         super(EFF_CMIA, self).__init__()
         self.model_spa = CUS_EFF(model_name, pretrained, **kwargs)
         self.model_freq = CUS_EFF(model_name, pretrained, **kwargs)
