@@ -13,7 +13,7 @@ from backbone.model_selection import model_selection
 from utils import convert_video
 import time
 #Loading the mtcnn model
-detector = MTCNN(device='cuda:0').eval()
+detector = MTCNN(device='cpu').eval()
 def usr_transforms(size=256):
         return Compose([
         Resize(height=size, width=size),
