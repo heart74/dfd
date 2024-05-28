@@ -181,8 +181,8 @@ model_name = "cdc"
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 if model_name == 'cdc':
 
-    model = load_model()
-    model,img_size = model.to(device)
+    model,img_size = load_model()
+    model = model.to(device)
     model.eval()
     # st.write('模型加载成功')
     st.markdown("#### 模型加载成功 ",True)
