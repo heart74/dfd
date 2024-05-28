@@ -8,7 +8,7 @@ import torch
 from torch.utils.data import DataLoader, Dataset
 from albumentations.pytorch import ToTensorV2
 from albumentations import Compose, Resize, Normalize
-
+from skimage import io
 from backbone.model_selection import model_selection
 from utils import convert_video
 import time
@@ -219,7 +219,9 @@ if uploaded_file:
             st.image(uploaded_file)
             image_pil=Image.open(uploaded_file).convert('RGB')
             image_pil.save('tmp.png')
-            image=cv2.imread('tmp.png')
+            # image=cv2.imread('tmp.png')
+            image = io.imread('tmp.png')
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             face, cord= detect_faces(image)
             if cord == 0:
                 st.error("未检测到人脸。")
