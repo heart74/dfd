@@ -163,6 +163,14 @@ def save_vids(tfilename,samples,preds,bboxs,save_path):
         out.write(frame)
     out.release()  # 释放新视频文件
     convert_video(output_path,"./detect.mp4")
+@st.cache
+def load_model():
+    model, input_size = model_selection('EFF_CMIA', freq_srm=(3,1),fusion="se",eff='efficientnet_b4',embeddings=0)
+    img_size = max(input_size)
+    checkpoint = './model_zoo/efficientnet_b4_Iter_037500_ACC94.57_AUC98.42.ckpt'
+    state_dict = torch.load(checkpoint, map_location="cpu")['net_state_dict']
+    model.load_state_dict(state_dict,strict=False)
+    return model, img_size
 
 # ========================================================================== #
 st.markdown("# <center> 深度人脸伪造检测系统 :mag: </center>",True)
@@ -172,12 +180,9 @@ selected_model = st.selectbox("选择检测模型", model_list)
 model_name = "cdc"
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 if model_name == 'cdc':
-    model, input_size = model_selection('EFF_CMIA', freq_srm=(3,1),fusion="se",eff='efficientnet_b4',embeddings=0)
-    img_size = max(input_size)
-    checkpoint = './model_zoo/efficientnet_b4_Iter_037500_ACC94.57_AUC98.42.ckpt'
-    state_dict = torch.load(checkpoint, map_location="cpu")['net_state_dict']
-    model.load_state_dict(state_dict,strict=False)
-    model = model.to(device)
+
+    model = load_model()
+    model,img_size = model.to(device)
     model.eval()
     # st.write('模型加载成功')
     st.markdown("#### 模型加载成功 ",True)
